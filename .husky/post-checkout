@@ -1,0 +1,23 @@
+old_rev=$1
+new_rev=$2
+switch_flag=$3
+
+
+if [[ "$switch_flag" -eq 1 ]]; then
+  # get current branch
+  branch=$(git rev-parse --abbrev-ref HEAD)
+
+  # exceptions
+  if [[ "$branch" =~ ^(main|master)$ ]]; then
+    exit 0
+  fi
+
+  # check pattern
+  if [[ ! "$branch" =~ ^feature/[a-z0-9._-]+$ ]]; then
+    echo "Invalid branch name: '$branch'"
+    echo "Allowed format: feature/short-description"
+    echo "Example: feature/login-ui"
+    exit 1
+  fi
+  exit 0
+fi
