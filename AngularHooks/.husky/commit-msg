@@ -1,0 +1,7 @@
+npx --no-install commitlint --config .woped-hooks/commitlint.config.js --edit "$1" --quiet ||
+(
+    echo -e "\n✘ Please check commit message format! \n"
+    false;
+)
+
+echo -e "✔ Commit message format correct. \n"

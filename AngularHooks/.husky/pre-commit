@@ -1,0 +1,30 @@
+# get only staged files with relevant extensions
+extensions='\.(js|json|css|scss|less|md|ts|html|component.html)$'
+staged_files=$(git diff --cached --name-only --diff-filter=ACM)
+files=$(echo "$staged_files" | grep -E "$extensions" || true)
+
+if [ -n "$files" ]; then
+
+  # check whether formatting ist necessary or not
+  if npx prettier \
+      --config .woped-hooks/.prettierrc \
+      --ignore-path .woped-hooks/.prettierignore \
+      --check $files > /dev/null 2>&1; then
+    needs_format=false
+  else
+    needs_format=true
+  fi
+
+  # if formatting ist necessary, apply it and abort the commit
+  if [ "$needs_format" = "true" ]; then
+    npx prettier \
+      --config .woped-hooks/.prettierrc \
+      --ignore-path .woped-hooks/.prettierignore \
+      --write $files
+
+    echo >&2 "\n✘ Formatting errors fixed. Please review the changes made!\n"
+    exit 1
+  fi
+fi
+
+echo "✔ The files are correctly formatted."

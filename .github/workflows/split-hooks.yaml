@@ -1,0 +1,32 @@
+name: Split Hooks
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  split:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: create branch with git hooks for java repos
+        run: |
+          git subtree split --prefix=JavaHooks -b java-hooks-only
+          git push -f origin java-hooks-only
+
+      - name: create branch with git hooks for python repos
+        run: |
+          git subtree split --prefix=PythonHooks -b python-hooks-only
+          git push -f origin python-hooks-only
+
+      - name: create branch with git hooks for angular repos
+        run: |
+          git subtree split --prefix=AngularHooks -b angular-hooks-only
+          git push -f origin angular-hooks-only
