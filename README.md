@@ -65,50 +65,35 @@ git submodule add -b python-hooks-only git@github.com:woped/woped-git-hooks.git 
     <artifactId>spotless-maven-plugin</artifactId>
     <version>2.44.4</version>
     <configuration>
-    <formats>
-        <format>
-        <includes>
-            <include>*.md</include>
-            <include>.gitignore</include>
-        </includes>
-        <excludes>
-            <exclude>LICENSE.md</exclude>
-            <exclude>README.md</exclude>
-        </excludes>
-        <trimTrailingWhitespace />
-        <endWithNewline />
-        <indent>
-            <tabs>true</tabs>
-            <spacesPerTab>4</spacesPerTab>
-        </indent>
-        </format>
-    </formats>
-    <java>
-        <importOrder />
-        <removeUnusedImports />
-        <googleJavaFormat>
-        <version>1.27.0</version>
-        <style>GOOGLE</style>
-        <reflowLongStrings>true</reflowLongStrings>
-        <groupArtifact>com.google.googlejavaformat:google-java-format</groupArtifact>
-        </googleJavaFormat>
-    </java>
+        <formats>
+            <format>
+                <includes>
+                    <include>*.md</include>
+                    <include>.gitignore</include>
+                </includes>
+                <excludes>
+                    <exclude>LICENSE.md</exclude>
+                    <exclude>README.md</exclude>
+                </excludes>
+                <trimTrailingWhitespace />
+                <endWithNewline />
+                <indent>
+                    <tabs>true</tabs>
+                    <spacesPerTab>4</spacesPerTab>
+                </indent>
+            </format>
+        </formats>
+        <java>
+            <importOrder />
+            <removeUnusedImports />
+            <googleJavaFormat>
+                <version>1.27.0</version>
+                <style>GOOGLE</style>
+                <reflowLongStrings>true</reflowLongStrings>
+                <groupArtifact>com.google.googlejavaformat:google-java-format</groupArtifact>
+            </googleJavaFormat>
+        </java>
     </configuration>
-    <executions>
-    <execution>
-        <id>spotless-check</id>
-        <phase>compile</phase>
-        <goals>
-        <goal>check</goal>
-        </goals>
-    </execution>
-    <execution>
-        <goals>
-        <goal>check</goal>
-        <goal>apply</goal>
-        </goals>
-    </execution>
-    </executions>
 </plugin>
 ```
 
